@@ -14,22 +14,15 @@
     <Grid>
         <Grid.ColumnDefinitions>
 
-            <ColumnDefinition Width="179*"/>
-            <ColumnDefinition Width="461*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
 
         </Grid.ColumnDefinitions>
 
-        <TextBox 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top" 
-            Height="58" 
-            Width="517"
-            Margin="10,10,10,10" 
-            PlaceholderText="Search" 
-            TextWrapping="Wrap"/>
 
         <!--Master VIEW-->
-        <ListView Name="watchlist_xaml" ItemsSource="{x:Bind Tickers}" Margin="0,74,0,0" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" SelectedItem="{Binding SelectedTicker}" Grid.Column="0">
+        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" PlaceholderText="Search" TextWrapping="Wrap" Width="460" Grid.Column="0"/>
+        <ListView Name="watchlist_xaml" ItemsSource="{x:Bind Tickers}" Margin="10,74,10,0" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" SelectedItem="{Binding SelectedTicker}" Grid.Column="0">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Ticker">
                     <TextBlock FontSize="16" Text="{x:Bind Name}"/>
@@ -38,12 +31,58 @@
         </ListView>
 
         <!--Details VIEW-->
-        <GridView Name="DetailGrid" Grid.Column="1" IsItemClickEnabled="False">
-            <StackPanel>
-                <TextBlock x:Name="Ticker_Name" FontSize="24"  Margin="0,0,0,50"/>
-                <WebView x:Name="Web_Chart" Source="{x:Bind Path=Complete_Uri}" Width="1371" Height="699"/>
+        <Grid Name="DetailGrid" Grid.Column="1">
+            <StackPanel HorizontalAlignment="Left">
+                <TextBlock x:Name="Ticker_Name" FontSize="24"  Margin="0,0,0,50" Height="65"/>
+                <WebView x:Name="Web_Chart" Source="{x:Bind Path=Complete_Uri}" Width="1434" Height="699" Margin="0,0,0,20"/>
+
+                <Grid Height="211" Width="1343" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="20"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+                    <StackPanel Orientation="Vertical" Grid.Column="0">
+                        <TextBlock x:Name="Open_Text" Text="Open"/>
+                        <TextBlock x:Name="Range_Text" Text="Day Range"/>
+                        <TextBlock x:Name="Prev_Text" Text="Previous Close"/>
+                    </StackPanel>
+                    <StackPanel BorderThickness="0,0,1,0" BorderBrush="Black"  Grid.Column="1">
+                        <TextBlock x:Name="Open_Value"/>
+                        <TextBlock x:Name="Range_Value"/>
+                        <TextBlock x:Name="Prev_Value"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"  Grid.Column="2">
+                        <TextBlock x:Name="Vol_Text" Text="Volume"/>
+                        <TextBlock x:Name="PE_Text" Text="P/E Ratio"/>
+                        <TextBlock x:Name="Mkt_Cap_Text" Text="Market Cap"/>
+                    </StackPanel>
+                    <StackPanel BorderThickness="0,0,1,0" BorderBrush="Black" Grid.Column="3">
+                        <TextBlock x:Name="Vol_Value"/>
+                        <TextBlock x:Name="PE_Value"/>
+                        <TextBlock x:Name="Mkt_Cap_Value"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"  Grid.Column="4">
+                        <TextBlock Name="Dividend_Text" Text="Dividend (Yield)"/>
+                        <TextBlock Name="Beta_Text" Text="Beta"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="5">
+                        <TextBlock x:Name="Dividend_Value"/>
+                        <TextBlock x:Name="Beta_Value"/>
+                    </StackPanel>
+                </Grid>
             </StackPanel>
-        </GridView>
+        </Grid>
 
 
     </Grid>

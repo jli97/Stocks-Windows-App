@@ -1,0 +1,1 @@
+D:\Documents\CS Work\Side Projects\Stocks Windows App\Stocks Windows App.csproj;x86

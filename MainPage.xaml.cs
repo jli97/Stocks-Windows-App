@@ -20,6 +20,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Net.Http;
 using HtmlAgilityPack;
+using System.Drawing;
+using AngleSharp.Dom;
+using AngleSharp.Text;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,66 +33,63 @@ namespace Stocks_Windows_App
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private List<Ticker> Tickers;
-        private ObservableCollection<Ticker> SelectedTickers;
-        private Ticker CurrentTicker;
+        private List<Stock> Watch_List;
+        private ObservableCollection<Stock> SelectedStock;
+        private Stock CurrentTicker;
         Uri Complete_Uri;
         private event EventHandler NavigationCompleted;
         private Dictionary<string, TextBlock> Financial_Dict = new Dictionary<string, TextBlock>();
         private string[,] Financial_Data = new string[9, 2];
-
+        bool Get_FinancialData_Initial = true;
 
         public MainPage()
         {
             this.InitializeComponent();
-            Tickers = Watchlist.GetTickers();
-            SelectedTickers = new ObservableCollection<Ticker>();
-            SelectedTickers.Add(Tickers[0]);
-            Ticker_Name.Text = Tickers[0].Name;
+            Watch_List = Watchlist.GetTickers();
+            SelectedStock = new ObservableCollection<Stock>();
+            SelectedStock.Add(Watch_List[0]);
+            Title.Text = Watch_List[0].Ticker;
 
-            Get_Chart(Tickers[0].Name);
+            Get_Chart(Watch_List[0].Ticker);
 
-            Financial_Dict.Add("Previous Close", Prev_Value);
-            Financial_Dict.Add("Open", Open_Value);
-            Financial_Dict.Add("Day&#x27;s Range", Range_Value);
-            Financial_Dict.Add("Volume", Vol_Value);
-            Financial_Dict.Add("PE Ratio (TTM)", PE_Value);
-            Financial_Dict.Add("Market Cap", Mkt_Cap_Value);
-            Financial_Dict.Add("52 Week Range", Range_Value);
-            Financial_Dict.Add("Forward Dividend &amp; Yield", Dividend_Value);
-            Financial_Dict.Add("Beta (5Y Monthly)", Beta_Value);
+            Get_FinancialData(Watch_List[0].Ticker);
 
-            Get_FinancialData(Tickers[0].Name);
 
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var selectedTicker = (Ticker)e.ClickedItem;
-            Ticker_Name.Text = selectedTicker.Name;
+            var selectedTicker = (Stock)e.ClickedItem;
+            Title.Text = selectedTicker.Ticker;
 
-            Get_Chart(selectedTicker.Name);
-            Get_FinancialData(selectedTicker.Name);
+            Get_Chart(selectedTicker.Ticker);
+            Get_FinancialData(selectedTicker.Ticker);
             
         }
         // Financial Data Methods
 
         private async void Get_FinancialData(string ticker)
-        { 
-
+        {
+            if(Get_FinancialData_Initial == true)
+            {
+                Financial_Dict.Add("Previous Close", Prev_Value);
+                Financial_Dict.Add("Open", Open_Value);
+                Financial_Dict.Add("Day&#x27;s Range", Range_Value);
+                Financial_Dict.Add("Volume", Vol_Value);
+                Financial_Dict.Add("PE Ratio (TTM)", PE_Value);
+                Financial_Dict.Add("Market Cap", Mkt_Cap_Value);
+                Financial_Dict.Add("52 Week Range", Range_Value);
+                Financial_Dict.Add("Forward Dividend &amp; Yield", Dividend_Value);
+                Financial_Dict.Add("Beta (5Y Monthly)", Beta_Value);
+                Get_FinancialData_Initial = false;
+            }
+           
             await Get_Html_Async(ticker);
 
-            for(int i = 0; i<Financial_Data.Length/2; i++)
+            //Populates the financial stats 
+            for(int i = 0; i<Financial_Data.Length/2; i++) 
             {
                 string key = Financial_Data[i, 0];
                 TextBlock target = Financial_Dict[key];
@@ -136,20 +136,80 @@ namespace Stocks_Windows_App
 
         }
 
-            
+        //Search bar methods
+        private async void Search_Box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (Search_Box.Text.Length != 0)
+            {
+                Canvas.SetZIndex(Main_Rect_2, 1);
+
+                //Scrape, populate listview and set zindex to 0
+
+                string input = Search_Box.Text;
+                string site_url = "https://ca.finance.yahoo.com/lookup/equity?s=" + input;
+                HttpClient httpClient = new HttpClient();
+
+                var html = await httpClient.GetStringAsync(site_url);
+
+                var html_document = new HtmlDocument();
+                html_document.LoadHtml(html);
+
+                var summary_html = html_document.DocumentNode.Descendants("table").Where(node => node.GetAttributeValue("class", "").Equals("lookup-table W(100%) Pos(r) BdB Bdc($tableBorderGray) smartphone_Mx(20px)")).ToList();
+                var table_html = html_document.DocumentNode.Descendants("tr").Where(node => node.GetAttributeValue("data-reactid", "").Contains("")).ToList();
+
+                List<Stock> search_list = new List<Stock>();
+
+                bool first = true;
+                
+                foreach (var node in table_html)
+                {
+                    //Skips first node
+                    if(first == true)
+                    {
+                        first = false;
+                        continue;
+                    }
+                   
+
+                    string ticker = "";
+                    for(int i = 0; i<node.InnerText.Length; i++)
+                    {
+                        if (node.InnerText[i].IsLowercaseAscii()) break;
+                        ticker = ticker + node.InnerText[i];
+                    }
+                    ticker = ticker.Remove(ticker.Length - 1); //Removes first letter of name
+                    search_list.Add(new Stock { Ticker = ticker });
+
+                    Master_ListView.ItemsSource = search_list;
+                    Canvas.SetZIndex(Main_Rect_2, 0);
+                }
+                
+
+
+            }
+            else
+            {
+                Canvas.SetZIndex(Main_Rect_2, 0);
+                Master_ListView.ItemsSource = Watch_List;
+            }
+
+        }
+
         // Charting Methods
         private async void Get_Chart(string ticker)
         {
             string BaseUri = "https://www.tradingview.com/chart/?symbol=";
             Complete_Uri = new Uri(BaseUri + ticker);
             Web_Chart.Navigate(Complete_Uri);
-            await System.Threading.Tasks.Task.Delay(10000); //Fix this later, figure out how to get webview to wait before exeucting javascript
-            //await Web_Chart.InvokeScriptAsync("eval", new string[] { "document.getElementById(\"header-toolbar-fullscreen\").click()" });
         }
 
-        private async void Test_Click(object sender, RoutedEventArgs e)
+        private async void Web_Chart_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            await Web_Chart.InvokeScriptAsync("eval", new string[] { "document.getElementById(\"header-toolbar-fullscreen\").click()" }); 
+            await Web_Chart.InvokeScriptAsync("eval", new string[] { "document.getElementById(\"header-toolbar-fullscreen\").click()" });
         }
+
+        //Notification Methods
+
     }
 }

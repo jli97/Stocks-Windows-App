@@ -15,28 +15,51 @@
         <Grid.ColumnDefinitions>
 
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
 
         </Grid.ColumnDefinitions>
-
+        <!--Background Colour-->
+        
+        
+       
 
         <!--Master VIEW-->
-        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10,0,0" PlaceholderText="Search" TextWrapping="Wrap" Width="460" Grid.Column="0"/>
-        <ListView Name="watchlist_xaml" ItemsSource="{x:Bind Tickers}" Margin="10,74,10,0" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" SelectedItem="{Binding SelectedTicker}" Grid.Column="0">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:Ticker">
-                    <TextBlock FontSize="16" Text="{x:Bind Name}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+
+            <Rectangle Name="Main_Rect_1" Grid.Row="0">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#B6B6B6"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Name="Main_Rect_2" Grid.Row="1">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#DFDFDF"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            
+            <TextBox Name="Search_Box" Margin="10,10,10,5" PlaceholderText="Search" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="0" TextChanged="Search_Box_TextChanged"/>
+            <ListView Name="Master_ListView" ItemsSource="{x:Bind Watch_List}" Margin="10,10,10,0" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" SelectedItem="{Binding SelectedTicker}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Stock">
+                        <TextBlock FontSize="16" Text="{x:Bind Ticker}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        
 
         <!--Details VIEW-->
         <Grid Name="DetailGrid" Grid.Column="1">
-            <StackPanel HorizontalAlignment="Left">
-                <TextBlock x:Name="Ticker_Name" FontSize="24"  Margin="0,0,0,50" Height="65"/>
-                <WebView x:Name="Web_Chart" Source="{x:Bind Path=Complete_Uri}" Width="1434" Height="699" Margin="0,0,0,20"/>
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock x:Name="Title" FontSize="24"  Margin="10,0,0,20" Height="65"/>
+                <WebView x:Name="Web_Chart" Source="{x:Bind Path=Complete_Uri}" Margin="20,0,0,20" LoadCompleted="Web_Chart_LoadCompleted" Width="Auto" MinHeight="650"/>
 
-                <Grid Height="211" Width="1343" >
+                <Grid Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="3*"/>
@@ -48,7 +71,6 @@
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="Margin" Value="20"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="HorizontalAlignment" Value="Center"/>
                         </Style>
                     </Grid.Resources>
@@ -57,28 +79,28 @@
                         <TextBlock x:Name="Range_Text" Text="Day Range"/>
                         <TextBlock x:Name="Prev_Text" Text="Previous Close"/>
                     </StackPanel>
-                    <StackPanel BorderThickness="0,0,1,0" BorderBrush="Black"  Grid.Column="1">
-                        <TextBlock x:Name="Open_Value"/>
-                        <TextBlock x:Name="Range_Value"/>
-                        <TextBlock x:Name="Prev_Value"/>
+                    <StackPanel BorderThickness="0,0,1,0" BorderBrush="Gray"  Grid.Column="1">
+                        <TextBlock x:Name="Open_Value" FontWeight="Bold"/>
+                        <TextBlock x:Name="Range_Value" FontWeight="Bold"/>
+                        <TextBlock x:Name="Prev_Value" FontWeight="Bold"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"  Grid.Column="2">
                         <TextBlock x:Name="Vol_Text" Text="Volume"/>
                         <TextBlock x:Name="PE_Text" Text="P/E Ratio"/>
                         <TextBlock x:Name="Mkt_Cap_Text" Text="Market Cap"/>
                     </StackPanel>
-                    <StackPanel BorderThickness="0,0,1,0" BorderBrush="Black" Grid.Column="3">
-                        <TextBlock x:Name="Vol_Value"/>
-                        <TextBlock x:Name="PE_Value"/>
-                        <TextBlock x:Name="Mkt_Cap_Value"/>
+                    <StackPanel BorderThickness="0,0,1,0" BorderBrush="Gray" Grid.Column="3">
+                        <TextBlock x:Name="Vol_Value" FontWeight="Bold"/>
+                        <TextBlock x:Name="PE_Value" FontWeight="Bold"/>
+                        <TextBlock x:Name="Mkt_Cap_Value" FontWeight="Bold"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"  Grid.Column="4">
                         <TextBlock Name="Dividend_Text" Text="Dividend (Yield)"/>
                         <TextBlock Name="Beta_Text" Text="Beta"/>
                     </StackPanel>
                     <StackPanel Grid.Column="5">
-                        <TextBlock x:Name="Dividend_Value"/>
-                        <TextBlock x:Name="Beta_Value"/>
+                        <TextBlock x:Name="Dividend_Value" FontWeight="Bold"/>
+                        <TextBlock x:Name="Beta_Value" FontWeight="Bold"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>

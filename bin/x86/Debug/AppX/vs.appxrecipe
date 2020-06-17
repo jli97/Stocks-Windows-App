@@ -30,13 +30,13 @@
     <AppXManifest Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-06-15T02:48:24.921</Modified>
+      <Modified>2020-06-17T03:16:59.223</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\Stocks Windows App.exe">
       <PackagePath>entrypoint\Stocks Windows App.exe</PackagePath>
-      <Modified>2020-06-15T02:48:24.300</Modified>
+      <Modified>2020-06-17T03:16:58.621</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Jonathan\.nuget\packages\anglesharp\0.14.0\lib\netstandard2.0\AngleSharp.dll">
       <PackagePath>AngleSharp.dll</PackagePath>
@@ -94,19 +94,19 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\Stocks Windows App.xr.xml">
       <PackagePath>Stocks Windows App.xr.xml</PackagePath>
-      <Modified>2020-06-15T02:42:38.560</Modified>
+      <Modified>2020-06-16T03:08:27.975</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-06-15T02:44:07.536</Modified>
+      <Modified>2020-06-17T03:15:36.971</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2020-06-15T02:48:24.159</Modified>
+      <Modified>2020-06-17T03:16:58.420</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\Resources\Templates.xbf">
       <PackagePath>Resources\Templates.xbf</PackagePath>
-      <Modified>2020-06-15T02:48:24.159</Modified>
+      <Modified>2020-06-17T03:16:58.420</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -114,11 +114,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-06-15T02:44:07.919</Modified>
+      <Modified>2020-06-15T18:05:13.940</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\Core\Stocks Windows App.exe">
       <PackagePath>Stocks Windows App.exe</PackagePath>
-      <Modified>2020-06-15T02:48:24.917</Modified>
+      <Modified>2020-06-17T03:16:59.219</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

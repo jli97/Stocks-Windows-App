@@ -4,7 +4,10 @@
     <RootPropertyPathName Name="SelectedTicker" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
-    <RootType FullName="Windows.UI.Xaml.Application" />
+    <RootType FullName="Windows.UI.Xaml.Application">
+      <RootProperty Name="Resources" />
+    </RootType>
+    <RootType FullName="Windows.UI.Color" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Background" />
       <RootProperty Name="Content" />
@@ -13,35 +16,24 @@
     <RootType FullName="Windows.UI.Xaml.Controls.Grid">
       <RootProperty Name="ColumnDefinitions" />
       <RootProperty Name="Children" />
+      <RootProperty Name="RowDefinitions" />
       <RootProperty Name="Name" />
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Resources" />
       <RootMethod Name="GetColumn" />
       <RootMethod Name="SetColumn" />
+      <RootMethod Name="GetRow" />
+      <RootMethod Name="SetRow" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ColumnDefinition">
       <RootProperty Name="Width" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="PlaceholderText" />
-      <RootProperty Name="TextWrapping" />
-      <RootProperty Name="Width" />
-    </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
-      <RootProperty Name="Name" />
-      <RootProperty Name="ItemsSource" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="IsItemClickEnabled" />
-      <RootProperty Name="SelectedItem" />
-      <RootProperty Name="ItemTemplate" />
-      <RootEvent Name="ItemClick" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Children" />
       <RootProperty Name="Orientation" />
       <RootProperty Name="BorderThickness" />
@@ -57,9 +49,10 @@
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.WebView">
       <RootProperty Name="Source" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Height" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="MinHeight" />
+      <RootEvent Name="LoadCompleted" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.FrameworkElement">
       <RootProperty Name="Margin" />
@@ -72,9 +65,36 @@
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.BindExtension">
       <RootProperty Name="Path" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
+      <RootProperty Name="Height" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Shapes.Rectangle">
+      <RootProperty Name="Name" />
+      <RootProperty Name="Fill" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="Name" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="TextWrapping" />
+      <RootEvent Name="TextChanged" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
+      <RootProperty Name="Name" />
+      <RootProperty Name="ItemsSource" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="IsItemClickEnabled" />
+      <RootProperty Name="SelectedItem" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="ItemTemplate" />
+      <RootEvent Name="ItemClick" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.Data.Binding" />
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Media.SolidColorBrush">
+      <RootProperty Name="Color" />
     </RootType>
     <RootType FullName="Stocks_Windows_App.MainPage" />
     <RootType FullName="Windows.UI.Xaml.ResourceDictionary" />

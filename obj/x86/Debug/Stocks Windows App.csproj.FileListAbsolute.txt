@@ -49,3 +49,4 @@ D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\AngleSharp.d
 D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\HtmlAgilityPack.dll
 D:\Documents\CS Work\Side Projects\Stocks Windows App\bin\x86\Debug\HtmlAgilityPack.pdb
 D:\Documents\CS Work\Side Projects\Stocks Windows App\obj\x86\Debug\HtmlAgilityPack.pri.xml
+D:\Documents\CS Work\Side Projects\Stocks Windows App\obj\x86\Debug\Stocks Windows App.csprojAssemblyReference.cache

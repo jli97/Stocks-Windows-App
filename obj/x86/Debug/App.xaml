@@ -3,6 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Stocks_Windows_App">
-  
+
+    <Application.Resources>
+        <Color x:Key="Main_Color_1">#B6B6B6</Color>
+        <Color x:Key="Main_Color_2">#DFDFDF</Color>
+    </Application.Resources>
 </Application>
 
